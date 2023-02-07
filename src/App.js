@@ -1,24 +1,24 @@
-import logo from './logo.svg';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import './App.css';
+import PlanesIndex from "./pages/plane/PlanesIndex";
+// import PlaneInfo from "./pages/plane/PlaneInfo";
+import FlightsIndex from "./pages/flight/FlightsIndex";
+import FlightInfo from "./pages/flight/FlightInfo";
+import SearchPage from "./pages/search/SearchPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<SearchPage />}></Route>
+        <Route path='/search' element={<SearchPage />}></Route>
+        <Route path='/planes' element={<PlanesIndex />}></Route>
+        <Route path='/flights' element={<FlightsIndex />}></Route>
+        <Route path='/flights/:id' element={<FlightInfo />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
