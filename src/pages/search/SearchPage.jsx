@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FlightsTable from '../../common/FlightsTable';
+// import NavBar from "../common/NavBar";
 
 const SearchPage = () => {
     return (
