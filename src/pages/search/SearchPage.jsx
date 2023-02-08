@@ -1,41 +1,104 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import FlightsTable from '../../common/FlightsTable';
 
-const SearchPage = () => {
-    return (
-        <div>
-            <SearchBar />
-            <Flights />
-        </div>
-    )
+class SearchPage extends Component {
+    constructor() {
+        super();
+        this.state = {
+            flights: [
+                { "id": 4, "flight_number": "SYDAUHAM", "origin": "SYD", "destination": "AUD", "date": "2023-05-08T09:53:01.000Z", "airplane_id": 1, "created_at": "2023-02-07T22:48:28.483Z", "updated_at": "2023-02-07T22:48:28.483Z", "url": "http://localhost:3001/flights/4.json" },
+                { "id": 5, "flight_number": "QLDWAAPM", "origin": "QLD", "destination": "WAH", "date": "2023-05-09T09:53:01.000Z", "airplane_id": 1, "created_at": "2023-02-07T22:48:28.487Z", "updated_at": "2023-02-07T22:48:28.487Z", "url": "http://localhost:3001/flights/5.json" },
+                { "id": 6, "flight_number": "ADLNTHAM", "origin": "ADL", "destination": "NTO", "date": "2023-04-03T09:53:01.000Z", "airplane_id": 2, "created_at": "2023-02-07T22:48:28.492Z", "updated_at": "2023-02-07T22:48:28.492Z", "url": "http://localhost:3001/flights/6.json" }],
+        }
+
+        this.searchFlights = this.searchFlights.bind(this);
+    }
+
+    searchFlights(origin, destination,date) {
+        console.log("searching...", origin, destination, date);
+        // TODO: filter the flights by origin, destination and date
+
+    }
+
+    render() {
+        return (
+            <div>
+                <SearchBar origins={this.state.flights.map(flight => flight['origin'])} destinations={this.state.flights.map(flight => flight['destination'])} onSubmit={this.searchFlights}/>
+                <Flights />
+            </div>
+        )
+    }
+
 };
 
-const SearchBar = () => {
+const SearchBar = (props) => {
+    const [origin, setOrigin] = useState('');
+    const [destination, setDestination] = useState('');
+    const [date, setDate] = useState('');
+
+    const _handleChangeOrigin = (e) => {
+        console.log(e.target.value);
+        setOrigin(e.target.value)
+    };
+
+    const _handleChangeDestination = (e) => {
+        console.log(e.target.value);
+        setDestination(e.target.value)
+    };
+
+    const _handleChangeDate = (e) => {
+        console.log(e.target.value);
+        setDate(e.target.value)
+    };
+
+    const _handleSubmit = (e) => {
+        // prevent the browser from reloading the page
+        e.preventDefault();
+        console.log('submittted');
+        props.onSubmit(origin, destination, date)
+
+    };
+
     return (
-        <div>
-            <div>
-                <form>
-                    <label htmlFor="origin">From</label>
-                    <select name="origin" id="origin">
-                        <option value="JFK">John F. Kennedy International Airport (New York, USA)</option>
-                        <option value="SYD">Sydney International Airport (Sydney, AUS)</option>
-                        <option value="MEL">Melbourne International Airport (Melbourne, AUS) </option>
-                    </select>
-                    <label htmlFor="destination">To</label>
-                    <select name="destination" id="destination">
-                        <option value="HAN">Hanoi International Airport (Hanoi, VN)</option>
-                        <option value="SGN">Ho Chi Minh City International Airport (HCMC, VN)</option>
-                        <option value="DAD">Da Nang International Airport (Da Nang, VN)</option>
-                    </select>
-                    <label htmlFor="date">Date</label>
-                    <input type="date" name="date" id="date" />
-                    <input type="submit" value="Search Flight" />
-                </form>
-            </div>
-        </div>
+        <form onSubmit={_handleSubmit}>
+            <label>From
+                <OriginSelect origins={props.origins} handleChangeOrigin={_handleChangeOrigin} />
+            </label>
+            <label>To
+                <DestinationSelect destinations={props.destinations} handleChangeDestination={_handleChangeDestination} />
+            </label>
+
+            <label>Date
+                <input type="date" name="date" id="date" onChange={_handleChangeDate} />
+            </label>
+            <input type="submit" value="Search Flight" />
+        </form>
     )
 }
 
+const OriginSelect = ({ origins, handleChangeOrigin }) => {
+    return (
+        <select name="origins" id="origins" onChange={handleChangeOrigin}>
+            <option value=''>Select the origin</option>
+            {
+                origins.map(origin => <option value={origin} key={origin}>{origin}</option>)
+            }
+        </select>
+
+    )
+};
+
+const DestinationSelect = ({ destinations, handleChangeDestination }) => {
+    return (
+        <select name="destinations" id="destinations" onChange={handleChangeDestination}>
+            <option value=''>Select the destination</option>
+            {
+                destinations.map(destination => <option value={destination} key={destination}>{destination}</option>)
+            }
+        </select>
+
+    )
+};
 const Flights = () => {
     return (
         <div>

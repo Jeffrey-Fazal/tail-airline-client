@@ -25,7 +25,7 @@ const FlightRow = () => {
         <tr>
             <td>15 February 2023</td>
             <td>VN110</td>
-            <td>SYN > SGN</td>
+            <td>SYN - SGN</td>
             <td>Airbus 303</td>
             <td>90</td>
         </tr>
