@@ -7,9 +7,10 @@ class SearchPage extends Component {
         super();
         this.state = {
             flights: [
-                { "id": 4, "flight_number": "SYDAUHAM", "origin": "SYD", "destination": "AUD", "date": "2023-05-08T09:53:01.000Z", "airplane_id": 1, "created_at": "2023-02-07T22:48:28.483Z", "updated_at": "2023-02-07T22:48:28.483Z", "url": "http://localhost:3001/flights/4.json" },
-                { "id": 5, "flight_number": "QLDWAAPM", "origin": "QLD", "destination": "WAH", "date": "2023-05-09T09:53:01.000Z", "airplane_id": 1, "created_at": "2023-02-07T22:48:28.487Z", "updated_at": "2023-02-07T22:48:28.487Z", "url": "http://localhost:3001/flights/5.json" },
-                { "id": 6, "flight_number": "ADLNTHAM", "origin": "ADL", "destination": "NTO", "date": "2023-04-03T09:53:01.000Z", "airplane_id": 2, "created_at": "2023-02-07T22:48:28.492Z", "updated_at": "2023-02-07T22:48:28.492Z", "url": "http://localhost:3001/flights/6.json" }],
+                { "id": 4, "flight_number": "SYDAUHAM", "origin": "SYD", "destination": "AUD", "date": "2023-05-08", "airplane_id": 1, "created_at": "2023-02-07T22:48:28.483Z", "updated_at": "2023-02-07T22:48:28.483Z", "url": "http://localhost:3001/flights/4.json" },
+                { "id": 5, "flight_number": "QLDWAAPM", "origin": "QLD", "destination": "WAH", "date": "2023-05-09", "airplane_id": 1, "created_at": "2023-02-07T22:48:28.487Z", "updated_at": "2023-02-07T22:48:28.487Z", "url": "http://localhost:3001/flights/5.json" },
+                { "id": 6, "flight_number": "ADLNTHAM", "origin": "ADL", "destination": "NTO", "date": "2023-04-03", "airplane_id": 2, "created_at": "2023-02-07T22:48:28.492Z", "updated_at": "2023-02-07T22:48:28.492Z", "url": "http://localhost:3001/flights/6.json" }],
+            result: [],
         }
 
         this.searchFlights = this.searchFlights.bind(this);
@@ -18,14 +19,24 @@ class SearchPage extends Component {
     searchFlights(origin, destination,date) {
         console.log("searching...", origin, destination, date);
         // TODO: filter the flights by origin, destination and date
+        // fetch all flights
+        // filter flights according to the origin, destination and date
+        // handle the case of no flights found
+        // reset the result of the previous search
+        // this.setState({ result: [] });
+        console.log(this.state.flights)
 
+        let availableFlights = this.state.flights.filter(flight => flight.origin === origin && flight.destination === destination && flight.date === date)
+
+        this.setState( { result: availableFlights})
+        console.log(this.state.result);
     }
 
     render() {
         return (
             <div>
                 <SearchBar origins={this.state.flights.map(flight => flight['origin'])} destinations={this.state.flights.map(flight => flight['destination'])} onSubmit={this.searchFlights}/>
-                <Flights />
+                <Flights flights={this.state.result} />
             </div>
         )
     }
@@ -100,11 +111,11 @@ const DestinationSelect = ({ destinations, handleChangeDestination }) => {
 
     )
 };
-const Flights = () => {
+const Flights = ( { flights }) => {
     return (
         <div>
             <h2>Flight Search Results</h2>
-            <FlightsTable />
+            <FlightsTable flights={flights}/>
         </div>
     )
 };

@@ -1,33 +1,38 @@
 import React, { Component } from 'react';
 
-const FlightsTable = () => {
+const FlightsTable = ( { flights }) => {
+    let rows = [];
+    console.log(flights);
+    flights.forEach(flight => {
+        rows.push(<FlightRow flight={flight} key={flight.id} />)
+    })
     return (
         <table>
             <thead>
                 <tr>
                     <th>Date</th>
-                    <th>Flight</th>
+                    <th>Flight Number</th>
                     <th>From - To</th>
-                    <th>Plane</th>
-                    <th>Seats</th>
+                    {/* <th>Plane</th>
+                    <th>Seats</th> */}
                 </tr>
             </thead>
             <tbody>
-                <FlightRow />
+                { rows }
             </tbody>
         </table>
     )
 };
 
 
-const FlightRow = () => {
+const FlightRow = ( { flight }) => {
     return (
         <tr>
-            <td>15 February 2023</td>
-            <td>VN110</td>
-            <td>SYN - SGN</td>
-            <td>Airbus 303</td>
-            <td>90</td>
+            <td>{ flight.date }</td>
+            <td>{ flight.flight_number }</td>
+            <td>{ flight.origin} - { flight.destination }</td>
+            {/* <td>{ flight.airplane.name }</td>
+            <td>{ flight.airplane.rows.count() * flight.airplane.colums.count() }</td> */}
         </tr>
     )
 };
