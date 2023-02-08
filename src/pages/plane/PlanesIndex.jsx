@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import axios from "axios";
 import NavbarBootStrap from "../../common/NavBar";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import FooterStrap from "../../common/Footer";
 
 
 const PlanesIndex = () => {
@@ -35,13 +36,15 @@ const PlanesIndex = () => {
         <tbody>
           {data.map((item) => (
             <tr key={item.id}>
-              <td>{item.name} || 'A310</td>
-              <td>{item.rows} || 'A'</td>
-              <td>{item.columns} || '2'</td>
+              <td></td>
+              <td>{item.name}</td>
+              <td>{item.rows}</td>
+              <td>{item.columns}</td>
             </tr>
           ))}
         </tbody>
       </Table>
+      <FooterStrap />
     </div>
   );
 };

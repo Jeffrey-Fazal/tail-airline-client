@@ -16,6 +16,7 @@ class NavbarBootStrap extends React.Component {
                     <Nav.Link href="/search">Search</Nav.Link>
                     <Nav.Link href="/planes">Planes</Nav.Link>
                     <Nav.Link href="/flights">Flights</Nav.Link>
+                    <Nav.Link href="/login">Login</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>
