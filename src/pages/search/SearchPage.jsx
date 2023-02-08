@@ -19,8 +19,9 @@ class SearchPage extends Component {
     componentDidMount() {
         const fetchFlights = () => {
             axios.get(FLIGHTS_URL).then((response) => {
+                console.log(response.data);
                 this.setState({ flights: response.data });
-                // setTimeout(fetchFlights, 5000);      // should we repeatly fetch data or only fetch when the search is submitted?
+                setTimeout(fetchFlights, 5000);      // should we repeatly fetch data or only fetch when the search is submitted?
             });
         };
         fetchFlights();
