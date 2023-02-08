@@ -1,41 +1,45 @@
+import axios from 'axios';
 import React, { Component, useState } from 'react';
 import FlightsTable from '../../common/FlightsTable';
 // import NavBar from "../common/NavBar";
 
+const FLIGHTS_URL = 'http://localhost:3000/flights.json';
 class SearchPage extends Component {
     constructor() {
         super();
         this.state = {
-            flights: [
-                { "id": 4, "flight_number": "SYDAUHAM", "origin": "SYD", "destination": "AUD", "date": "2023-05-08", "airplane_id": 1, "created_at": "2023-02-07T22:48:28.483Z", "updated_at": "2023-02-07T22:48:28.483Z", "url": "http://localhost:3001/flights/4.json" },
-                { "id": 5, "flight_number": "QLDWAAPM", "origin": "QLD", "destination": "WAH", "date": "2023-05-09", "airplane_id": 1, "created_at": "2023-02-07T22:48:28.487Z", "updated_at": "2023-02-07T22:48:28.487Z", "url": "http://localhost:3001/flights/5.json" },
-                { "id": 6, "flight_number": "ADLNTHAM", "origin": "ADL", "destination": "NTO", "date": "2023-04-03", "airplane_id": 2, "created_at": "2023-02-07T22:48:28.492Z", "updated_at": "2023-02-07T22:48:28.492Z", "url": "http://localhost:3001/flights/6.json" }],
+            flights: [],
             result: [],
         }
 
         this.searchFlights = this.searchFlights.bind(this);
     }
 
-    searchFlights(origin, destination,date) {
-        console.log("searching...", origin, destination, date);
-        // TODO: filter the flights by origin, destination and date
-        // fetch all flights
-        // filter flights according to the origin, destination and date
-        // handle the case of no flights found
-        // reset the result of the previous search
-        // this.setState({ result: [] });
-        console.log(this.state.flights)
+    // fetch data from the server
+    componentDidMount() {
+        const fetchFlights = () => {
+            axios.get(FLIGHTS_URL).then((response) => {
+                this.setState({ flights: response.data });
+                // setTimeout(fetchFlights, 5000);      // should we repeatly fetch data or only fetch when the search is submitted?
+            });
+        };
+        fetchFlights();
+    }
 
+    searchFlights(origin, destination, date) {
+        // console.log("searching...", origin, destination, date);
+        // console.log(this.state.flights)
+        // filter the flights according to the origin, destination and date
         let availableFlights = this.state.flights.filter(flight => flight.origin === origin && flight.destination === destination && flight.date === date)
 
-        this.setState( { result: availableFlights})
-        console.log(this.state.result);
+        this.setState({ result: availableFlights })
+        // console.log(this.state.result);
     }
 
     render() {
         return (
             <div>
-                <SearchBar origins={this.state.flights.map(flight => flight['origin'])} destinations={this.state.flights.map(flight => flight['destination'])} onSubmit={this.searchFlights}/>
+                <SearchBar origins={this.state.flights.map(flight => flight['origin'])} destinations={this.state.flights.map(flight => flight['destination'])} onSubmit={this.searchFlights} />
                 <Flights flights={this.state.result} />
             </div>
         )
@@ -111,13 +115,21 @@ const DestinationSelect = ({ destinations, handleChangeDestination }) => {
 
     )
 };
-const Flights = ( { flights }) => {
-    return (
-        <div>
-            <h2>Flight Search Results</h2>
-            <FlightsTable flights={flights}/>
-        </div>
-    )
+const Flights = ({ flights }) => {
+    if (flights.length > 0) {
+        return (
+            <div className='result'>
+                <FlightsTable flights={flights} />
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                <i>No available flights found</i>
+            </div>
+        )
+    }
+
 };
 
 export default SearchPage;
