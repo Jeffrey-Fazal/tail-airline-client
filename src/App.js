@@ -1,12 +1,13 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 import './App.css';
 import PlanesIndex from "./pages/plane/PlanesIndex";
-// import PlaneInfo from "./pages/plane/PlaneInfo";
 import FlightsIndex from "./pages/flight/FlightsIndex";
-import FlightInfo from "./pages/flight/FlightInfo";
 import SearchPage from "./pages/search/SearchPage";
+import FlightInfo from "./pages/flight/FlightInfo";
 
 function App() {
   return (

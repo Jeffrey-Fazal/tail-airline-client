@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
-const FlightsTable = ( { flights }) => {
+
+const FlightsTable = ({ flights }) => {
+    console.log(flights);
     let rows = [];
     console.log(flights);
     flights.forEach(flight => {
@@ -8,31 +11,40 @@ const FlightsTable = ( { flights }) => {
     })
     return (
         <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Flight Number</th>
-                    <th>From - To</th>
-                    {/* <th>Plane</th>
-                    <th>Seats</th> */}
-                </tr>
-            </thead>
+            <FlightsTableHeader />
             <tbody>
-                { rows }
+                {rows}
             </tbody>
         </table>
     )
 };
 
+export function FlightsTableHeader () {
+    return (
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Flight Number</th>
+                <th>From - To</th>
+                <th>Plane</th>
+                <th>Seats</th>
+            </tr>
+        </thead>
+    )
+};
 
-const FlightRow = ( { flight }) => {
+export function FlightRow( { flight }) {
+
+
     return (
         <tr>
-            <td>{ flight.date }</td>
-            <td>{ flight.flight_number }</td>
-            <td>{ flight.origin} - { flight.destination }</td>
-            {/* <td>{ flight.airplane.name }</td>
-            <td>{ flight.airplane.rows.count() * flight.airplane.colums.count() }</td> */}
+            <td>{flight.date}</td>
+            <td>
+                <Link to={`/flights/${flight.id}`}>{flight.flight_number}</Link>
+            </td>
+            <td>{flight.origin} - {flight.destination}</td>
+            <td>{flight.airplane.name}</td>
+            <td>{flight.airplane.rows.split(',').length * flight.airplane.columns.split(',').length}</td>
         </tr>
     )
 };
