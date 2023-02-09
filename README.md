@@ -44,3 +44,4 @@ Contains the SearchPage.jsx component (home)
 ## Dependencies
 
 * React DOM router
+* Boostrap library
