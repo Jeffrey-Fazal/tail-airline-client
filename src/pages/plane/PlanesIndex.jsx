@@ -4,7 +4,7 @@ import axios from "axios";
 import NavbarBootStrap from "../../common/NavBar";
 import FooterStrap from "../../common/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Button from 'react-bootstrap/Button';
 
 const PlanesIndex = () => {
   const [data, setData] = useState([]);
@@ -24,6 +24,7 @@ const PlanesIndex = () => {
     <div>
       <NavbarBootStrap />
       <h1>Planes Page</h1>
+      <Button variant="success" href="http://localhost:3000/airplanes">Create Planes</Button>{' '}
       <Table striped bordered hover>
         <thead>
           <tr>

@@ -81,7 +81,10 @@ const SearchBar = (props) => {
     };
 
     return (
+        
         <form onSubmit={_handleSubmit}>
+        <h1>Welcome to top rated Airlines</h1>
+            <p>Our airlines has great flights, check them out with our easy to use search bar.</p>
             <label>From
                 <OriginSelect origins={props.origins} handleChangeOrigin={_handleChangeOrigin} />
             </label>

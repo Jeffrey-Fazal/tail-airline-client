@@ -2,7 +2,7 @@ import React from "react"
 
 const FooterStrap = ()  => 
 <footer className="page-footer font-small blue pt-4">
-<div id="foot"></div>
+<div id="foot">
 <hr></hr>
     <div className="container-fluid text-center text-md-left">
         <div className="row">
@@ -36,7 +36,7 @@ const FooterStrap = ()  =>
     </div>
 
     <div className="footer-copyright text-center py-3">© 2023 Copyright</div>
-
+    </div>
 </footer>
 
 export default FooterStrap
