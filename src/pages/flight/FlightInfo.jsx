@@ -18,15 +18,47 @@ const FlightInfo = () => {
     useEffect(() => {
         getFlight();
     }, []);
-    
+
     console.log(flight);
 
     return (
+        <div>
         <table>
             <FlightsTableHeader />
             {flight ? <FlightRow flight={flight}  /> : <></>}
         </table>
+        <div>
+            {flight ? <SeatsTable rows={flight.airplane.rows} columns={flight.airplane.columns}/> : <></> }
+        </div>
+        </div>
     )
 }
+
+const SeatsTable = ( { rows, columns }) => {
+    const newRows = rows.split(',').map((row) =>
+        <th>{row}</th>
+    )
+
+    const newColumns = columns.split(',').map((column) => <td>{column}</td>)
+
+
+
+    return (
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        {newRows}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                       {newColumns}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    )
+};
 
 export default FlightInfo;
