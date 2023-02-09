@@ -1,39 +1,30 @@
-import React, { Component, useParams } from 'react';
+import React, { useState, useEffect, Component } from 'react';
+import { useParams } from 'react-router-dom'
 import axios from 'axios';
 
 import { FlightsTableHeader, FlightRow } from '../../common/FlightsTable';
 
-class FlightInfo extends Component {
-    constructor() {
-        super();
-        this.state = {
-            flight_url: ''
-        }
+const FlightInfo = () => {
+    const [flight, setFlight] = useState(null);
+    let { id } = useParams();
+
+    function getFlight() {
+        axios.get(`http://localhost:3000/flights/${id}.json`).then((response) => {
+        console.log(response.data);
+        setFlight(response.data);
+        });
     }
+    useEffect(() => {
+        getFlight();
+    }, []);
+    console.log(flight);
 
-    // fetch data from the server
-    componentDidMount() {
-        const fetchFlight = () => {
-            console.log('Fetching flight at', this.state.flight_url);
-            axios.get(this.state.flight_url).then((response) => {
-                console.log(response.data);
-                return response.data;
-            });
-            setTimeout(fetchFlight, 5000);
-        };
-        fetchFlight();
-    }
-
-
-    render() {
-        return (
-            <table>
-                <FlightsTableHeader />
-                {/* <FlightRow /> */}
-            </table>
-        )
-    }
-
+    return (
+        <table>
+            <FlightsTableHeader />
+            {flight ? <FlightRow flight={flight}  /> : <></>}
+        </table>
+    )
 }
 
 export default FlightInfo;

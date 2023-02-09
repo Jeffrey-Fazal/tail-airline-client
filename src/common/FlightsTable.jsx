@@ -34,8 +34,6 @@ export function FlightsTableHeader () {
 };
 
 export function FlightRow( { flight }) {
-
-
     return (
         <tr>
             <td>{flight.date}</td>
