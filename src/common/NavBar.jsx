@@ -7,7 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 class NavbarBootStrap extends React.Component {
     render() {
         return (
-        <div>   
+        <div id="head">   
             <Navbar bg="primary" variant="dark">
             <Container>
                 <Navbar.Brand href="/">Burning Airline</Navbar.Brand>
@@ -19,7 +19,6 @@ class NavbarBootStrap extends React.Component {
                     <Nav.Link href="/login">Login</Nav.Link>
                 </Nav>
             </Container>
-        <div id="head"></div>
         </Navbar>
         </div>
         )

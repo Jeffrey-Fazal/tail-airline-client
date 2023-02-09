@@ -8,12 +8,13 @@ import PlanesIndex from "./pages/plane/PlanesIndex";
 import FlightsIndex from "./pages/flight/FlightsIndex";
 import SearchPage from "./pages/search/SearchPage";
 import FlightInfo from "./pages/flight/FlightInfo";
+import HomePage from "./pages/search/HomePage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<SearchPage />}></Route>
+        <Route path='/' element={<HomePage />}></Route>
         <Route path='/search' element={<SearchPage />}></Route>
         <Route path='/planes' element={<PlanesIndex />}></Route>
         <Route path='/flights' element={<FlightsIndex />}></Route>
