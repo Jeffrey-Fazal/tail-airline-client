@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { Component, useState } from 'react';
 import FlightsTable from '../../common/FlightsTable';
-// import NavBar from "../common/NavBar";
+import NavbarBootStrap from "../../common/NavBar";
+import FooterStrap from "../../common/Footer";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const FLIGHTS_URL = 'http://localhost:3000/flights.json';
 class SearchPage extends Component {
@@ -40,8 +42,10 @@ class SearchPage extends Component {
     render() {
         return (
             <div>
+                <NavbarBootStrap />
                 <SearchBar origins={this.state.flights.map(flight => flight['origin'])} destinations={this.state.flights.map(flight => flight['destination'])} onSubmit={this.searchFlights} />
                 <Flights flights={this.state.result} />
+                <FooterStrap />
             </div>
         )
     }

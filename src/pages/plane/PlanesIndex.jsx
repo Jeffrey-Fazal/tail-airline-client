@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
 import axios from "axios";
 import NavbarBootStrap from "../../common/NavBar";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import FooterStrap from "../../common/Footer";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const PlanesIndex = () => {

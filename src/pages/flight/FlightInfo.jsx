@@ -14,9 +14,11 @@ const FlightInfo = () => {
         setFlight(response.data);
         });
     }
+
     useEffect(() => {
         getFlight();
     }, []);
+    
     console.log(flight);
 
     return (
